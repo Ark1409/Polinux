@@ -2,7 +2,7 @@
 Extendable, configurable HTTP web server coded from scratch
 
 Implemented features include:
-- **Text File Retrieval**: Serve static text files from the file system, with URLs mapped to the directory hierarchy.
+- **Simple File Retrieval**: Serve static text files from the file system, with URLs mapped to the directory hierarchy.
   
 - **HTTP/HTTPS Support**: Configurable to run on both HTTP and HTTPS, with simple SSL/TLS integration for secure communication.
 
