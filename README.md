@@ -11,3 +11,8 @@ Implemented features include:
 - **Experimental Command API**: Enables dynamic server management during runtime, allowing configuration changes and administrative tasks without restarting the server.
 
 - **Easy YAML Configuration**: The server is configured using a clear, human-readable YAML file, making it simple to define settings such as ports, file paths, and servlet mappings.
+
+Notes:
+- Java 1.8 is required to build/run the project (≥ jdk/jre1.8.0_221)
+- The project is meant to be opened in Eclipse for viewing
+
