@@ -1,0 +1,143 @@
+###############################################
+# /-----------------------------------------\ #
+# |           Polinux HTTP Server           | #
+# |                                         | #
+# |                  1.0.0                  | #
+# |                                         | #
+# |           Server Configuration          | #
+# \-----------------------------------------/ #
+###############################################
+#
+# This is the 'Core' server configuration file.
+# All the server's main settings are stored in this file.
+# Tips: 
+#   - If you want to use "'" and your text is surronded in single quotes ('), put two of them. Example: 
+#         keyname: 'I don''t like you.' 
+#       Either that or surround the text in double quotes to use one single quote. 
+#       Example: 
+#        keyname: "I don't like you." 
+#   - Don't use tab when making new sections, just put two spaces using your spacebar.
+web:
+  # The host of the server
+  # The default value is 'localhost' (or '127.0.0.1')
+  #
+  # Note that if this is being ran on the server's machine (like it probably will be), you will need to instead put the IPv4 of the server in this field and not 'localhost'.
+  #
+  # Also note that entering the public IP of your machine might also not work here. You will need to input the IPv4 then port forward port 80 (or whatever port is used for HTTP) for HTTP 
+  # and port 443 (or whatever port is used for HTTPS) for HTTPS
+  host: "localhost"
+  #host: "127.0.0.1"
+
+  # The file root of the server.
+  # The should be a folder named "wwwroot" created when you launched the Polinux server. That is the default website root.
+  # Change this to change the web root of the server.
+  # The value may be an absolute path name (e.g. "C:/Users/.../website/root") or the relative path name ("website/wwwroot").
+  # Use forward slashes ("/") for path separating.
+  root: "wwwroot"
+  #root: "website/root"
+  
+  # Represents the backlog for the server.
+  # Essentially, the backlog is how many connections the server can handle at once.
+  # Lower this down if your system is not that powerful.
+  # But you may increase this value on a high end system / server.
+  # Default value is 100.
+  backlog: 100
+  
+  # The section containing HTTP server settings.
+  http:
+    # Whether to enable the HTTP server or not.
+    # Must be set to true for 'https-redirect' to work.
+    enabled: true
+
+    # The port for the HTTP server.
+    # The default port for most browsers is 80.
+    # If the port is changed, you may have to add the port to the website URL ("http://localhost:[myport]").
+    port: 80
+
+    # Whether to automatically redirect all HTTP request to the HTTPS server.
+    # The HTTP and HTTPS server must both be enabled for this settings to work.
+    https-redirect: false
+
+  # The section containing HTTPS server settings.
+  https:
+    # Whether to enable the HTTPS server or not.
+    # Must be set to true for 'https-redirect' to work.
+    enabled: false
+
+    # The port for the HTTPS server.
+    # The default HTTPS port for most browsers is 443.
+    # If the port is changed, you may have to add the port to the website URL ("https://localhost:[myport]").
+    # But that does not work on all browsers and so this port should not be edited.
+    port: 443
+
+    # The following section contains the HTTPS server's certificate settings.
+
+    # The section containing settings for keystore use.
+    keystore: 
+      # Whether to enable use of .jks files for the server or not.
+      # Either this, or 'use-pfx' must be enabled, not both.
+      use-keystore: true
+      
+      # The location of the keystore file.
+      # The value may be an absolute path name (e.g. "C:/Users/.../keystores/keystore.jks") or the relative path name ("keystores/server.jks").
+      # Use forward slashes ("/") for path separating.
+      # This should not be set to an empty value ("") if keystores are being used.
+      keystore-file: "keystores/keystore.jks"
+      #keystore-file: "C:/Users/admin/polinux/keystores/keystore.jks"
+
+      # The password for the keystore file.
+      # Inputing a wrong or invalid password will cause an error.
+      keystore-password: "password"
+
+    # The section containing settings for pfx use.
+    # The pfx file is transformed into a keystore a then cached at the relative location: 'cache/keystores/[pfx-name-with-extension].jks'
+    pfx:
+      # Whether to enable use of .pfx files for the server or not.
+      # Either this, or 'use-keystore' must be enabled, not both.
+      use-pfx: false
+      
+      # Whether to enable caching of pfx files.
+      # The Polinux HTTP Server will cache pfx files into a transformed keystore (.jks) file so that one mustn't be created each time the server is booted.
+      # Setting this value to false will disable caching of pfx files, and a new keystore file will then be created for your pfx whenever the server boots up.
+      # If you never have to pfx files with the same name, you may leave this to true
+      # But if you have to pfx files with the same name but different paths, set this to false to make sure the Polinux HTTP Server is taking the pfx for the one you input and not a cached version.
+      enable-pfx-caching: true
+     
+      # The location of the pfx file.
+      # The value may be an absolute path name (e.g. "C:/Users/.../certs/server-info.pfx") or the relative path name ("certs/mypfx.jks").
+      # Use forward slashes ("/") for path separating.
+      # This should not be set to an empty value ("") if pfx files are being used.
+      # If pfx-caching is enabled, make sure that this filename is unique to any other previously cached pfx files.
+      # If unsure, you may clear the cache for the server (delete the folder called 'cache' inside the 'home directory' of Polinux).
+      pfx-file: "certs/server.pfx"
+      #pfx-file: "C:/Users/admin/polinux/pfx/server.pfx"
+
+      # The password for the pfx file.
+      # Inputing a wrong or invalid password will cause an error.
+      pfx-password: "password"
+
+  # Information about HTTP sessions. 
+  # You may care about this if you are a web developer.    
+  session:
+    # The section containing session cookie settings
+    cookie:
+      # The name of the session cookie.
+      # This cannot be set to an empty value ("").
+      name: "PSessionId"
+      
+      # Whether to set the 'HttpOnly' flag for the session cookie.
+      # (This is NOT a flag meaning the cookie only gets sent when in http and not https, this cookie will be sent through both protocols whether this is set to true OR false)
+      http-only: true
+
+      # Whether to set the 'Secure' flag for the session cookie.
+      # If the server is running on HTTP and not HTTPS, setting this to true will have no effect.
+      secure: false
+
+      # The 'SameSite' flag for the cookie.
+      # Leave as default ("LAX") if you do not know what you are doing.
+      same-site-policy: "LAX"
+      
+      # The domain of the session cookie
+      # Can be used to keep the session id consistent around *.website.com
+      # Ignore if only 1 hostname is being used (e.g. localhost)
+      domain: ""

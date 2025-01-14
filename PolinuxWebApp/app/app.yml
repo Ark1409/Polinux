@@ -1,0 +1,10 @@
+app:
+  welcome:
+  - index.html
+  - index.htm
+  root: www
+  servlets:
+    HomeServlet:
+      class: com.pa.main.HomeServlet
+      url-patterns:
+      - "/myserv"

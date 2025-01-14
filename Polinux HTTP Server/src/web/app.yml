@@ -1,0 +1,19 @@
+app:
+  welcome:
+  - index.html
+  - index.htm
+  root: wwwroot
+  servlets:
+    HomeServlet:
+      class: com.lp.main.HomeServlet
+      url-patterns:
+      - "/"
+      - "/home"
+  forbidden-pages:
+  - "/css"
+  - "/js"
+#  error-pages:
+#    *: "/"
+#    404: "/404.html"
+      
+  
