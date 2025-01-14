@@ -1,5 +1,5 @@
 # Polinux
-Extendable, configurable HTTP web server coded from scratch
+Extendable, configurable HTTP web server coded from scratch.
 
 Implemented features include:
 - **Simple File Retrieval**: Serve static text files from the file system, with URLs mapped to the directory hierarchy.
